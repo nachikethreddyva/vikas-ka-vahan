@@ -337,3 +337,48 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.1);
     font-size: 1.5rem;
 }
+
+/* CONTROLS HELPER */
+.hud-bottom-right {
+    position: absolute;
+    bottom: 8rem;
+    right: 2rem;
+    pointer-events: none;
+}
+
+.controls-card {
+    padding: 1rem 1.5rem;
+    border-radius: 16px;
+    background: rgba(15, 23, 42, 0.4);
+}
+
+.keys {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.key {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    font-weight: 800;
+    font-size: 0.8rem;
+    color: var(--color-saffron);
+}
+
+.controls-card .label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--color-slate-400);
+}
+
+/* RESPONSIVE TOGGLES */
+.mobile-only { display: none; }
+
+@media (max-width: 768px) {
+    .desktop-only { display: none; }
+    .mobile-only { display: block; }
+}

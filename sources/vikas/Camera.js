@@ -1,6 +1,7 @@
 /**
  * Camera — Third-person follow camera with smooth interpolation
  * Optimized for distant visibility (2500 far plane).
+ * STICKY: Fixed distance lag and car "running away" issue.
  */
 
 import * as THREE from 'three'
@@ -13,27 +14,27 @@ export class Camera {
         this.instance = new THREE.PerspectiveCamera(
             50,
             this.experience.sizes.width / this.experience.sizes.height,
-            0.5, // Increased near for precision
-            2500 // Increased far for milestones
+            0.5, 
+            2500 
         )
 
-        // Third-person offset (camera sits behind & above car)
-        this.cameraDistance = 16
-        this.cameraHeight = 8
-        this.lookAheadDistance = 12
-        this.lookHeight = 1.5
+        // TIGHTER Offset - Closer to car to prevent "running away"
+        this.cameraDistance = 12
+        this.cameraHeight = 5
+        this.lookAheadDistance = 10
+        this.lookHeight = 1.0
 
         this.smoothedPosition = new THREE.Vector3(0, this.cameraHeight, this.cameraDistance)
         this.smoothedTarget = new THREE.Vector3(0, 0, 0)
         this.desiredPosition = new THREE.Vector3()
         this.desiredTarget = new THREE.Vector3()
 
-        // Easing - Faster response to keep up with car
-        this.positionEasing = 6.8
-        this.targetEasing = 8.5
+        // HIGH AGGRESSIVE EASING: Eliminates lag
+        this.positionEasing = 9.0
+        this.targetEasing = 12.0
 
-        // Slight sway
-        this.swayAmount = 0.3
+        // Subtle organic sway
+        this.swayAmount = 0.2
         this.swaySpeed = 0.5
 
         this.instance.position.copy(this.smoothedPosition)
@@ -57,38 +58,38 @@ export class Camera {
         const forwardX = -Math.sin(carRotY)
         const forwardZ = -Math.cos(carRotY)
 
-        // Dynamic distance and height based on speed
-        const currentDist = this.cameraDistance + speedRatio * 4
-        const currentHeight = this.cameraHeight - speedRatio * 1.5
+        // Clamped distance: it won't pull back too far even at speed
+        const currentDist = this.cameraDistance + speedRatio * 3
+        const currentHeight = this.cameraHeight - speedRatio * 1.0
 
-        // Camera BEHIND car
+        // POSITION: Fixed tight follow
         this.desiredPosition.set(
             carPos.x - forwardX * currentDist,
             carPos.y + currentHeight,
             carPos.z - forwardZ * currentDist
         )
 
-        // Look target AHEAD of car
+        // TARGET: Look slightly ahead
         this.desiredTarget.set(
             carPos.x + forwardX * this.lookAheadDistance,
             carPos.y + this.lookHeight,
             carPos.z + forwardZ * this.lookAheadDistance
         )
 
-        // Smooth follow with delta-normalized easing
+        // Apply high-speed easing for zero lag
         const posLerp = 1 - Math.exp(-this.positionEasing * delta)
         this.smoothedPosition.lerp(this.desiredPosition, posLerp)
 
         const targetLerp = 1 - Math.exp(-this.targetEasing * delta)
         this.smoothedTarget.lerp(this.desiredTarget, targetLerp)
 
-        // Organic sway
+        // Sway
         const elapsed = this.experience.elapsed
         const swayX = Math.sin(elapsed * this.swaySpeed) * this.swayAmount * (1 + speedRatio)
         const swayY = Math.cos(elapsed * this.swaySpeed * 0.7) * this.swayAmount * 0.5
 
-        // FOV Punch
-        this.instance.fov = 50 + speedRatio * 15
+        // Speed FOV Punch (subtle)
+        this.instance.fov = 50 + speedRatio * 10
         this.instance.updateProjectionMatrix()
 
         this.instance.position.set(
