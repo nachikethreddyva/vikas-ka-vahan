@@ -156,7 +156,27 @@ export class Experience {
         if (this.audioManager) this.audioManager.update(this.delta, this.car)
         if (this.uiManager) this.uiManager.update(this.delta)
 
+        // DETECT END OF ROAD
+        if (this.car.position.z < -2750 && !this.ended) {
+            this.showEndScreen()
+        }
+
         this.renderer.render(this.scene, this.camera.instance)
         requestAnimationFrame(() => this.tick())
+    }
+
+    showEndScreen() {
+        this.ended = true
+        document.getElementById('end-screen')?.classList.remove('hidden')
+        document.getElementById('hud')?.classList.add('fade-out')
+        document.getElementById('timeline-bar')?.classList.add('fade-out')
+        
+        // Disable driving
+        this.car.maxSpeed = 0
+        this.car.speed *= 0.1
+
+        document.getElementById('restart-button')?.addEventListener('click', () => {
+            window.location.reload()
+        })
     }
 }

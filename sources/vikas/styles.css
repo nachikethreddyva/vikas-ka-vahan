@@ -382,3 +382,39 @@ body {
     .desktop-only { display: none; }
     .mobile-only { display: block; }
 }
+
+/* END SCREEN */
+.brand-badge.green {
+    background: var(--color-green);
+}
+
+.vision-quote {
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--color-slate-400);
+    margin: 2rem 0;
+    padding: 0 1rem;
+    border-left: 4px solid var(--color-saffron);
+}
+
+.target-2047 {
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: var(--color-saffron);
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.end-link {
+    display: block;
+    margin-top: 1.5rem;
+    color: var(--color-slate-400);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.end-link:hover {
+    color: var(--color-white);
+}
