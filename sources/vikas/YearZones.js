@@ -28,9 +28,9 @@ export class YearZones {
                 saturation: 0.6,
                 filterFrequency: 450,
                 billboards: [
-                    { text: '2013: Stalled India', stat: 'Near Zero Decision Making', desc: 'India was plagued by severe policy paralysis, leading to a standstill in critical development.', icon: '❌', side: 'left', offset: 0.2 },
-                    { text: 'Macroeconomic Instability', stat: 'Critical Inflation: 10%+', desc: 'High inflation and fiscal deficit crippled the middle class and small businesses.', icon: '📉', side: 'right', offset: 0.5 },
-                    { text: 'Systemic Exclusion', stat: '53% population unbanked', desc: 'Majority of Indians were excluded from the formal financial system, relying on lenders.', icon: '🚧', side: 'left', offset: 0.8 },
+                    { text: '2013: Policy Paralysis', stat: 'Governance at a Standstill', desc: 'A period of systemic stagnation where critical reforms were stalled for years, leaving India ranked among the "Fragile Five" global economies.', icon: '⛓️', side: 'left', offset: 0.2 },
+                    { text: 'Double-Digit Inflation', stat: 'Cost of living: 10%+', desc: 'Soaring food and fuel prices cripped household budgets, with inflation persistently staying in the double digits.', icon: '📉', side: 'right', offset: 0.5 },
+                    { text: 'Infrastructure Stagnation', stat: '$400B+ Stalled Capital', desc: 'Over ₹18 Lakh Crore worth of vital infrastructure projects were trapped in regulatory limbo and corruption scandals.', icon: '🚧', side: 'left', offset: 0.8 },
                 ]
             },
             {

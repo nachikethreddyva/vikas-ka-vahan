@@ -169,8 +169,17 @@ export class Billboards {
         document.getElementById('modal-icon').textContent = item.data.icon
         document.getElementById('modal-title').textContent = item.data.text
         document.getElementById('modal-stat').textContent = item.data.stat
-        document.getElementById('modal-description').textContent = "This milestone represents a core pillar of India's growth and transformative journey under Prime Minister Modi's leadership."
-        document.getElementById('modal-substat').textContent = `Achieved during ${item.zone.yearStart}–${item.zone.yearEnd}`
+        
+        // Use the description from data, or fallback if not present
+        const desc = item.data.desc || "A significant marker in India's developmental journey."
+        document.getElementById('modal-description').textContent = desc
+
+        // Special labeling for 2013 (Pre-Leadership Era)
+        if (item.zone.yearStart === 2013) {
+            document.getElementById('modal-substat').textContent = `State of the Nation: 2013`
+        } else {
+            document.getElementById('modal-substat').textContent = `Transformational Milestone: ${item.zone.yearStart}–${item.zone.yearEnd}`
+        }
 
         this.modal.classList.remove('hidden')
         
